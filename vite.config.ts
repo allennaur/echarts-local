@@ -5,7 +5,7 @@ import { traeBadgePlugin } from 'vite-plugin-trae-solo-badge';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/magic-charts/', // Base path for GitHub Pages
+  base: '/echarts-local/', // Base path for GitHub Pages
   build: {
     sourcemap: 'hidden',
     chunkSizeWarningLimit: 2000, // Increase limit to 2000KB to silence ECharts warning
