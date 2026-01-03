@@ -43,6 +43,12 @@ const VisualDataEditor: React.FC<VisualDataEditorProps> = ({ data, onChange, cha
     onChange({ ...data, xAxis: newXAxis });
   };
 
+  const handleSeriesNameChange = (seriesIndex: number, newName: string) => {
+    const newSeries = [...data.series];
+    newSeries[seriesIndex] = { ...newSeries[seriesIndex], name: newName };
+    onChange({ ...data, series: newSeries });
+  };
+
   const handleSeriesValueChange = (seriesIndex: number, dataIndex: number, val: string) => {
     const newSeries = [...data.series];
     const newData = [...newSeries[seriesIndex].data];
@@ -161,7 +167,14 @@ const VisualDataEditor: React.FC<VisualDataEditorProps> = ({ data, onChange, cha
                 <tr className="border-b bg-muted/50">
                 <th className="p-3 text-left font-medium text-muted-foreground w-32">X Axis</th>
                 {data.series.map((s, i) => (
-                    <th key={i} className="p-3 text-left font-medium text-muted-foreground min-w-[100px]">{s.name}</th>
+                    <th key={i} className="p-2 text-left font-medium text-muted-foreground min-w-[100px]">
+                        <input
+                            className="w-full bg-transparent border-b border-transparent hover:border-muted-foreground focus:border-primary focus:outline-none font-medium"
+                            value={s.name}
+                            onChange={(e) => handleSeriesNameChange(i, e.target.value)}
+                            placeholder={`Series ${i + 1}`}
+                        />
+                    </th>
                 ))}
                 <th className="p-2 w-10"></th>
                 </tr>

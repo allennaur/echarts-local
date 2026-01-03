@@ -8,6 +8,7 @@ import ColorSchemeSelector from '@/components/editor/ColorSchemeSelector';
 import EChartsRenderer, { EChartsRendererRef } from '@/components/chart-gallery/EChartsRenderer';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { ChartData, EChartsOption } from '@/types';
 import { cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -22,6 +23,7 @@ const ChartDetail = () => {
   const [error, setError] = useState<string | null>(null);
   const [editorMode, setEditorMode] = useState<'visual' | 'code' | 'colors'>('visual');
   const [currentColors, setCurrentColors] = useState<string[]>([]);
+  const [chartTitle, setChartTitle] = useState('');
 
   // Initialize data on load
   useEffect(() => {
@@ -33,6 +35,7 @@ const ChartDetail = () => {
       };
       setDataCode(JSON.stringify(initialData, null, 2));
       setOption(template.echartsOption);
+      setChartTitle(template.defaultConfig.title);
       if (template.defaultConfig.colors && template.defaultConfig.colors.length > 0) {
         setCurrentColors(template.defaultConfig.colors);
       }
@@ -58,9 +61,10 @@ const ChartDetail = () => {
 
       const newOption = { ...template.echartsOption };
 
-      // Update Title
-      if (config?.title) {
-        newOption.title = { ...newOption.title, text: config.title };
+      // Update Title from state (which might be edited manually) or config
+      const titleToUse = chartTitle || config?.title;
+      if (titleToUse) {
+        newOption.title = { ...newOption.title, text: titleToUse };
       }
 
       // Update Colors if changed
@@ -95,6 +99,15 @@ const ChartDetail = () => {
 
       setOption(newOption);
 
+      // Sync title back to JSON config if it changed via input
+      if (chartTitle !== config.title) {
+          const newFullData = {
+            ...parsed,
+            config: { ...config, title: chartTitle }
+          };
+          setDataCode(JSON.stringify(newFullData, null, 2));
+      }
+
     } catch (e) {
       setError((e as Error).message);
     }
@@ -127,6 +140,10 @@ const ChartDetail = () => {
     } catch (e) {
       console.error("Failed to parse current data for visual update", e);
     }
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setChartTitle(e.target.value);
   };
 
   const handleColorSchemeChange = (_schemeId: string, colors?: string[]) => {
@@ -184,10 +201,7 @@ const ChartDetail = () => {
         </div>
         
         <div className="flex items-center gap-2">
-          <Button variant="default" size="sm" onClick={handleRun} className="bg-blue-600 hover:bg-blue-700 text-white">
-            <Play className="h-4 w-4 mr-2" />
-            Run
-          </Button>
+          {/* Run button moved to Left Panel in UI but kept structure if needed */}
           <Button variant="secondary" size="sm" onClick={handleDownload} className="bg-green-600 hover:bg-green-700 text-white">
             <Download className="h-4 w-4 mr-2" />
             Download
@@ -213,6 +227,11 @@ const ChartDetail = () => {
                             <Palette className="h-3 w-3 mr-2" /> Colors
                         </TabsTrigger>
                     </TabsList>
+                    
+                    <Button variant="default" size="sm" onClick={handleRun} className="h-8 bg-blue-600 hover:bg-blue-700 text-white ml-2">
+                        <Play className="h-3 w-3 mr-1" />
+                        Run
+                    </Button>
                 </div>
              </Tabs>
           </div>
@@ -232,7 +251,16 @@ const ChartDetail = () => {
                     />
                 </div>
             ) : (
-                <div className="flex-1 overflow-auto p-4">
+                <div className="flex-1 overflow-auto p-4 flex flex-col gap-4">
+                     <div className="space-y-1">
+                        <label className="text-xs font-medium text-muted-foreground">Chart Title</label>
+                        <Input 
+                            value={chartTitle} 
+                            onChange={handleTitleChange} 
+                            placeholder="Enter chart title"
+                            className="bg-background"
+                        />
+                     </div>
                     {visualData ? (
                         <VisualDataEditor 
                             data={visualData} 
