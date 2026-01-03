@@ -89,7 +89,7 @@ const Home = () => {
       )}>
         <div className="p-5 border-b flex items-center justify-between h-16 bg-white shrink-0">
           <div className="flex items-center gap-2 font-bold text-xl tracking-tight">
-            <img src="/favicon.svg" alt="Logo" className="w-8 h-8" />
+            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Logo" className="w-8 h-8" />
             <span>ECHARTS-VIEW</span>
           </div>
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsSidebarOpen(false)}>
