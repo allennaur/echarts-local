@@ -2,10 +2,10 @@
 <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>favicon</title>
     <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="favicon">
-            <rect id="矩形" fill="#0A0B0D" fill-rule="nonzero" x="0" y="0" width="32" height="32"></rect>
-            <path d="M26.6677,30.38159 L6.09598698,30.38159 L6.09598698,25.5837218 L2.6677,25.5837218 L2.6677,6.38159 L26.6677,6.38159 L26.6677,30.38159 Z M8.38057,20.6496 L23.6201,20.6496 L23.6201,9.6496 L8.38057,9.6496 L8.38057,20.6496 Z" id="形状" fill="#0256FF" fill-rule="nonzero"></path>
-            <text id="CHARTS" font-family="SmileySans-Oblique, Smiley Sans" font-size="10" font-style="italic" font-weight="normal" fill="#FFFFFF">
+        <g id="favicon" fill-rule="nonzero">
+            <rect id="矩形" fill="#0A0B0D" x="0" y="0" width="32" height="32" rx="6"></rect>
+            <path d="M26.6677,30.38159 L6.09598698,30.38159 L6.09598698,25.5837218 L2.6677,25.5837218 L2.6677,6.38159 L26.6677,6.38159 L26.6677,30.38159 Z M8.38057,20.6496 L23.6201,20.6496 L23.6201,9.6496 L8.38057,9.6496 L8.38057,20.6496 Z" id="形状" fill="#0256FF"></path>
+            <text id="CHARTS" fill="#FFFFFF" font-family="SmileySans-Oblique, Smiley Sans" font-size="10" font-style="italic" font-weight="normal">
                 <tspan x="2.095" y="12">CHARTS</tspan>
             </text>
         </g>
