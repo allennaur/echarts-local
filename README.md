@@ -4,6 +4,12 @@
 
 Currently, the project supports a curated selection of chart types, including Line, Bar, Pie, Scatter, Radar, and Mixed charts, with more types being actively added.
 
+## 📸 Screenshots
+
+| Home Page | Chart Editing | Visual Data Editor |
+|:---:|:---:|:---:|
+| ![Home Page](public/HomePage.png) | ![Chart Editing](public/Chart_01.png) | ![Visual Data Editor](public/Chart_02.png) |
+
 ## ✨ Features
 
 *   **Local Deployment**: Runs entirely on your local machine for privacy and speed.
