@@ -306,19 +306,10 @@ export const chartTemplates: ChartTemplate[] = [
           smooth: true,
           lineStyle: { width: 0 },
           showSymbol: false,
+          // IMPORTANT: Removed hardcoded color stops to allow theme overriding
+          // areaStyle now relies on default color or theme color
           areaStyle: {
             opacity: 0.8,
-            color: {
-              type: "linear",
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [
-                { offset: 0, color: "rgb(128, 255, 165)" },
-                { offset: 1, color: "rgb(1, 191, 236)" },
-              ],
-            },
           },
           data: [140, 232, 101, 264, 90, 340, 250],
         },
@@ -380,22 +371,9 @@ export const chartTemplates: ChartTemplate[] = [
                     width: 0
                 },
                 showSymbol: false,
+                // IMPORTANT: Removed hardcoded color stops to allow theme overriding
                 areaStyle: {
                     opacity: 0.8,
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [{
-                            offset: 0,
-                            color: 'rgb(255, 0, 135)'
-                        }, {
-                            offset: 1,
-                            color: 'rgb(135, 0, 157)'
-                        }],
-                    }
                 },
                 data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400]
             }
@@ -1370,28 +1348,12 @@ export const chartTemplates: ChartTemplate[] = [
         tooltip: { trigger: 'axis', axisPointer: { type: 'cross', label: { backgroundColor: '#283b56' } } },
         legend: {},
         dataZoom: { show: false, start: 0, end: 100 },
-        xAxis: { type: 'category', boundaryGap: true, data: (function (){
-            let now = new Date();
-            let res = [];
-            let len = 10;
-            while (len--) {
-                res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
-                now = new Date(now.getTime() - 2000);
-            }
-            return res;
-        })() },
+        xAxis: { type: 'category', boundaryGap: true, data: ["00:00", "00:01", "00:02", "00:03", "00:04", "00:05", "00:06", "00:07", "00:08", "00:09"] },
         yAxis: { type: 'value', scale: true, name: 'Value', max: 30, min: 0, boundaryGap: [0.2, 0.2] },
         series: [{
             name: 'Dynamic Line',
             type: 'line',
-            data: (function (){
-                let res = [];
-                let len = 10;
-                while (len--) {
-                    res.push(Math.round(Math.random() * 1000));
-                }
-                return res;
-            })()
+            data: [10, 12, 11, 14, 19, 17, 15, 12, 10, 15]
         }]
     }
   }
